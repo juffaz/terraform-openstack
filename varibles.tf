@@ -1,18 +1,18 @@
 variable "image" {
   type    = string
-  default = "Centos 7"
+  default = "debian-9.4.2-20180330-openstack-amd64"
 }
 
 #### NEUTRON
 variable "external_network" {
   type    = string
-  default = "external-network"
+  default = "external"
 }
 
 # UUID of external gateway
 variable "external_gateway" {
   type    = string
-  default = "f67f0d72-0ddf-11e4-9d95-e1f29f417e2f"
+  default = "14b561b8-a84b-4894-848d-8893aed41cd8"
 }
 
 variable "dns_ip" {
@@ -23,13 +23,13 @@ variable "dns_ip" {
 #### VM parameters
 variable "flavor_http" {
   type    = string
-  default = "t2.medium"
+  default = "cpu_2_ram_4g"
 }
 
 variable "network_http" {
   type    = map(string)
   default = {
     subnet_name = "subnet-http"
-    cidr        = "192.168.1.0/24"
+    cidr        = "192.168.57.0/24"
   }
 }

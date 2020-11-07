@@ -14,16 +14,16 @@ resource "openstack_networking_network_v2" "generic" {
 
 #### HTTP SUBNET ####
 
-# Subnet http configuration
-resource "openstack_networking_subnet_v2" "http" {
-  name            = var.network_http["subnet_name"]
+# Subnet edoc configuration
+resource "openstack_networking_subnet_v2" "edoc" {
+  name            = var.network_edoc["subnet_name"]
   network_id      = openstack_networking_network_v2.generic.id
-  cidr            = var.network_http["cidr"]
+  cidr            = var.network_edoc["cidr"]
   dns_nameservers = var.dns_ip
 }
 
 # Router interface configuration
-resource "openstack_networking_router_interface_v2" "http" {
+resource "openstack_networking_router_interface_v2" "edoc" {
   router_id = openstack_networking_router_v2.generic.id
-  subnet_id = openstack_networking_subnet_v2.http.id
+  subnet_id = openstack_networking_subnet_v2.edoc.id
 }
