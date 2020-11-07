@@ -6,8 +6,8 @@ resource "openstack_blockstorage_volume_v2" "myvol" {
 resource "openstack_compute_instance_v2" "edoc" {
   name            = "edoc"
   image_name      = var.image
-  flavor_name     = var.flavor_http
-  key_pair        = "${openstack_compute_keypair_v2.my-cloud-key.name}"
+  flavor_name     = var.flavor_edoc
+  key_pair        = "${openstack_compute_keypair_v2.edoc-key.name}"
   security_groups = [ "default", "${openstack_compute_secgroup_v2.edoc_group.name}" ]
 
   block_device {
@@ -27,13 +27,10 @@ resource "openstack_compute_instance_v2" "edoc" {
 }
 
 resource "openstack_networking_port_v2" "edoc" {
-  name           = "port-instance-http"
+  name           = "port-instance-edoc"
   network_id     = openstack_networking_network_v2.generic.id
   admin_state_up = true
-  security_group_ids = [
-    openstack_compute_secgroup_v2.ssh.id,
-    openstack_compute_secgroup_v2.http.id,
-  ]
+  security_group_ids = [ openstack_compute_secgroup_v2.edoc_group.id ]
   fixed_ip {
     subnet_id = openstack_networking_subnet_v2.edoc.id
   }

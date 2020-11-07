@@ -21,15 +21,15 @@ variable "dns_ip" {
 }
 
 #### VM parameters
-variable "flavor_http" {
+variable "flavor_edoc" {
   type    = string
   default = "cpu_2_ram_4g"
 }
 
-variable "network_http" {
+variable "network_edoc" {
   type    = map(string)
   default = {
-    subnet_name = "subnet-http"
+    subnet_name = "subnet-edoc"
     cidr        = "192.168.57.0/24"
   }
 }
