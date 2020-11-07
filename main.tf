@@ -26,8 +26,21 @@ resource "openstack_compute_instance_v2" "edoc" {
   user_data = "${file("script.sh")}"
 }
 
+resource "openstack_networking_port_v2" "edoc" {
+  name           = "port-instance-http"
+  network_id     = openstack_networking_network_v2.generic.id
+  admin_state_up = true
+  security_group_ids = [
+    openstack_compute_secgroup_v2.ssh.id,
+    openstack_compute_secgroup_v2.http.id,
+  ]
+  fixed_ip {
+    subnet_id = openstack_networking_subnet_v2.edoc.id
+  }
+}
+
 resource "openstack_networking_floatingip_v2" "fip_1" {
-  pool = "external"
+  pool = var.external_network
 }
 
 resource "openstack_compute_floatingip_associate_v2" "fip_1" {
